@@ -12,7 +12,7 @@ const data_chats = chats.getAll();
 const data = JSON.parse(fs.readFileSync(dataPath));
 
 export default async function handler(req, res) {
-  try {
+  
     fetch('https://www.planetongames.com/es/')
       .then((response) => response.text())
       .then((html) => {
@@ -51,8 +51,5 @@ export default async function handler(req, res) {
         //fs.writeFileSync(dataPath, JSON.stringify(metadata));
         
         res.status(200).end('Ok!');
-      });   
-  } catch (error) {
-    console.log('error ',error);
-  }
+      });     
 }
