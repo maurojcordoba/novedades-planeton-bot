@@ -3,7 +3,6 @@ const fs = require('fs');
 const chats = require('./chats');
 const path = require('path');
 
-import { log } from 'console';
 import { getNews } from './planeton';
 
 require('dotenv').config();
