@@ -6,6 +6,8 @@ const path = require('path');
 
 require('dotenv').config();
 
+
+
 const dataPath = path.join(__dirname, '/data/data.json');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const data_chats = chats.getAll();
@@ -50,6 +52,6 @@ export default async function handler(req, res) {
         });
         //fs.writeFileSync(dataPath, JSON.stringify(metadata));
         
-        res.status(200).end('Ok!');
+        res.status(200).end(`Ok! ${process.env.BOT_TOKEN}`);
       });     
 }
