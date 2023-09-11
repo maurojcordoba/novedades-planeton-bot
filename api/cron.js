@@ -52,6 +52,6 @@ export default async function handler(req, res) {
         });
         //fs.writeFileSync(dataPath, JSON.stringify(metadata));
         
-        res.status(200).end(`Ok! ${process.env.BOT_TOKEN}`);
+        res.status(200).end(`Ok!`);
       });     
 }
