@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
 
+//busco novedades
 async function getNews() {
   try {
     let metadata = [];
