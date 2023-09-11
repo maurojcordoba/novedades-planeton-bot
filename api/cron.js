@@ -39,7 +39,7 @@ export default async function handler(req, res) {
             let photoId = item.img;
             
             data_chats.forEach((chat_id) =>{
-              console.log(chat_id,chat_id);
+              console.log('chat_id',chat_id);
               bot.telegram
                 .sendPhoto(chat_id, photoId, { caption: captionText, parse_mode: 'Markdown' })
                 .then(() => console.log('Mensaje enviado: ', item.title))
@@ -53,6 +53,6 @@ export default async function handler(req, res) {
         res.status(200).end('Ok!');
       });   
   } catch (error) {
-    console.log(error);
+    console.log('error ',error);
   }
 }
