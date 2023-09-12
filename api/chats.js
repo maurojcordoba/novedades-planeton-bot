@@ -1,32 +1,35 @@
 const fs = require('fs');
 const path = require('path');
 
-const path_chat = path.join(__dirname,'/data/chats.json');
+import { sql } from '@vercel/postgres';
 
-function getAll(){
-  return JSON.parse(fs.readFileSync(path_chat))
+
+async function getAll() {
+  const { rows } = await sql`SELECT * FROM chats;`;
+
+  return rows;
 }
 
-function push(chatId){
-  const data = getAll();
-  data.push(chatId);
-  save(data);
+async function push(chatId) {
+  try {
+    await sql`INSERT INTO chats (id) VALUES (${chatId});`;
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 
-function remove(chatId){
-  const data = getAll();
-  data.splice(data.indexOf(chatId));
-  save(data);
+async function remove(chatId) {
+  try {
+    await sql`DELETE FROM chats WHERE id =${chatId};`;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-
-function save(data){
-  fs.writeFileSync(path_chat, JSON.stringify(data));  
-}
 
 module.exports = {
   getAll: getAll,
   push: push,
-  remove: remove,
-  save: save
+  remove: remove
 }
