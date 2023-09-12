@@ -1,5 +1,5 @@
 const { Telegraf } = require('telegraf');
-const fs = require('fs');
+
 const chats = require('./chats');
 const path = require('path');
 
