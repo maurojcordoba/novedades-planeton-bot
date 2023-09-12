@@ -1,14 +1,14 @@
-import path from 'path';
-import { readFileSync, writeFileSync,existsSync } from 'fs';
-import { tmpdir } from 'os';
+const  path = require('path');
+const fs = require ('fs');
+const os = require ('os');
 
-const path_chat = path.join(tmpdir(), 'chats.json');
+const path_chat = path.join(os.tmpdir(), 'chats.json');
 
 function getAll() {
-  if(!existsSync(path_chat)){
-    writeFileSync(path_chat, JSON.stringify([]));
+  if(!fs.existsSync(path_chat)){
+    fs.writeFileSync(path_chat, JSON.stringify([]));
   }
-  return JSON.parse(readFileSync(path_chat));  
+  return JSON.parse(fs.readFileSync(path_chat));  
 }
 
 function push(chatId) {
@@ -24,7 +24,7 @@ function remove(chatId) {
 }
 
 function save(data) {
-  writeFileSync(path_chat, JSON.stringify(data));
+  fs.writeFileSync(path_chat, JSON.stringify(data));
 }
 
 module.exports = {
