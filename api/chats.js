@@ -1,4 +1,4 @@
-import { path } from 'path';
+import path from 'path';
 import { readFileSync, writeFileSync,existsSync } from 'fs';
 import { tmpdir } from 'os';
 
