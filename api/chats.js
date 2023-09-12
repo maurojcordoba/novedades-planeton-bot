@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const path_chat = path.join(__dirname,'/data/chats.json');
+import { tmpdir } from 'os';
+
+const path_chat = path.join(tmpdir(),'chats.json');
 
 function getAll(){
   return JSON.parse(fs.readFileSync(path_chat))
