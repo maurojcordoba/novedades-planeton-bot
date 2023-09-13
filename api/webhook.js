@@ -1,5 +1,5 @@
 import { Telegraf, Markup } from 'telegraf';
-import { getAll, push, remove } from './chats';
+import { sql } from '@vercel/postgres';
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -22,11 +22,11 @@ export default async function webhook(req, res) {
   // boton 'Activar'
   bot.action('activarNovedades', async (ctx, next) => {
     let chat_id = ctx.from.id;
-    let data = await getAll();
+    const { rows } = await sql`SELECT * FROM chats;`;
 
-    let found = data.includes(chat_id);
+    let found = rows.includes(chat_id);
     if (!found) {
-      await push(chat_id);
+      await sql`INSERT INTO chats (id) VALUES (${chat_id});`;
       return await ctx.editMessageText('Se han activado las notificaciones! 😏');
     } else {
       return await ctx.editMessageText(
@@ -38,11 +38,11 @@ export default async function webhook(req, res) {
   // boton 'Desactivar'
   bot.action('desactivarNovedades', async (ctx, next) => {
     let chat_id = ctx.from.id;
-    let data = await getAll();
+    const { rows } = await sql`SELECT * FROM chats;`;
 
     let found = data.includes(chat_id);
     if (found) {
-      await remove(chat_id);
+      await sql`DELETE FROM chats WHERE id =${chat_id};`;
       return await ctx.editMessageText('Se han desactivado las notificaciones. 😒');
     } else {
       return await ctx.editMessageText(
