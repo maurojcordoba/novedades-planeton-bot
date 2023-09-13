@@ -1,7 +1,5 @@
-const { Telegraf, Markup } = require('telegraf');
-const chats = require('./chats');
-
-require('dotenv').config();
+import { Telegraf, Markup } from 'telegraf';
+import { getAll, push, remove } from "./chats";
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -24,11 +22,11 @@ export default async function webhook(req, res) {
   // boton 'Activar'
   bot.action('activarNovedades', async (ctx, next) => {
     let chat_id = ctx.from.id;
-    let data = chats.getAll();
+    let data = await getAll();
 
     let found = data.includes(chat_id);
     if (!found) {
-      chats.push(chat_id);
+      await push(chat_id);
       return await ctx.editMessageText('Se han activado las notificaciones! 😏');
     } else {
       return await ctx.editMessageText(
@@ -40,11 +38,11 @@ export default async function webhook(req, res) {
   // boton 'Desactivar'
   bot.action('desactivarNovedades', async (ctx, next) => {
     let chat_id = ctx.from.id;
-    let data = chats.getAll();
+    let data = await getAll();
 
     let found = data.includes(chat_id);
     if (found) {
-      chats.remove(chat_id);
+      await remove(chat_id);
       return await ctx.editMessageText('Se han desactivado las notificaciones. 😒');
     } else {
       return await ctx.editMessageText(
