@@ -1,7 +1,3 @@
-const  path = require('path');
-
-const os = require ('os');
-
 import { sql } from '@vercel/postgres';
 
 
@@ -17,7 +13,6 @@ async function push(chatId) {
   } catch (error) {
     console.log(error);
   }
-
 }
 
 async function remove(chatId) {

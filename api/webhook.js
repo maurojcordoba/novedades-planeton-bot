@@ -1,5 +1,5 @@
 import { Telegraf, Markup } from 'telegraf';
-import { getAll, push, remove } from "./chats";
+import { getAll, push, remove } from './chats';
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
