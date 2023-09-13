@@ -24,7 +24,7 @@ async function remove(chatId) {
 }
 
 
-module.exports = {
+exports = {
   getAll: getAll,
   push: push,
   remove: remove
