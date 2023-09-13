@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 
 //busco novedades
-async function getNews() {
+export async function getNews() {
   try {
     let metadata = [];
     let response = await fetch('https://www.planetongames.com/es/');
@@ -26,5 +26,4 @@ async function getNews() {
   }
 }
 
-module.exports.getNews = getNews;
 

@@ -1,13 +1,10 @@
-const { Telegraf } = require('telegraf');
-
-const chats = require('./chats');
-const path = require('path');
+import { Telegraf } from 'telegraf';
 
 import { getNews } from './planeton';
 
-require('dotenv').config();
+import { sql } from '@vercel/postgres';
 
-const dataPath = path.join(__dirname, '/data/data.json');
+
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const data_chats = chats.getAll();
 const data = JSON.parse(fs.readFileSync(dataPath));
