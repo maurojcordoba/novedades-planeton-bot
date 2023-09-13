@@ -22,10 +22,10 @@ export default async function webhook(req, res) {
   // boton 'Activar'
   bot.action('activarNovedades', async (ctx, next) => {
     let chat_id = ctx.from.id;
-    const { rows } = await sql`SELECT * FROM chats;`;
+    const { rows } = await sql`SELECT * FROM chats WHERE id = ${chat_id};`;
 
-    let found = rows.includes(chat_id);
-    if (!found) {
+
+    if (rows.length <= 0) {
       await sql`INSERT INTO chats (id) VALUES (${chat_id});`;
       return await ctx.editMessageText('Se han activado las notificaciones! 😏');
     } else {
@@ -38,10 +38,9 @@ export default async function webhook(req, res) {
   // boton 'Desactivar'
   bot.action('desactivarNovedades', async (ctx, next) => {
     let chat_id = ctx.from.id;
-    const { rows } = await sql`SELECT * FROM chats;`;
+    const { rows } = await sql`SELECT * FROM chats WHERE id = ${chat_id};`;
 
-    let found = data.includes(chat_id);
-    if (found) {
+    if (rows.length > 0) {
       await sql`DELETE FROM chats WHERE id =${chat_id};`;
       return await ctx.editMessageText('Se han desactivado las notificaciones. 😒');
     } else {
@@ -51,13 +50,13 @@ export default async function webhook(req, res) {
     }
   });
 
-      // bot handles processed data from the event bod
-      //serveless    
-      await bot.handleUpdate(req.body, res);
+  // bot handles processed data from the event bod
+  //serveless    
+  await bot.handleUpdate(req.body, res);
 
-      // Enable graceful stop
-      process.once('SIGINT', () => bot.stop('SIGINT'))
-      process.once('SIGTERM', () => bot.stop('SIGTERM'))
-      //bot.launch(); //para correr y dejar escuchando
+  // Enable graceful stop
+  process.once('SIGINT', () => bot.stop('SIGINT'))
+  process.once('SIGTERM', () => bot.stop('SIGTERM'))
+  //bot.launch(); //para correr y dejar escuchando
 }
 
