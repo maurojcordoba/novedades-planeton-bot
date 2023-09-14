@@ -1,10 +1,6 @@
 import { Telegraf, Markup } from 'telegraf';
 import { sql } from '@vercel/postgres';
 
-import { inject } from '@vercel/analytics';
- 
-inject();
-
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 export default async function webhook(req, res) {
