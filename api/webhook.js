@@ -72,6 +72,7 @@ export default async function webhook(req, res) {
 
   // bot handles processed data from the event bod
   //serveless
+  console.log(req.body);
   await bot.handleUpdate(req.body, res);
 
   // Enable graceful stop
