@@ -64,7 +64,9 @@ export default async function webhook(req, res) {
         captionText += `[${item.title}](${item.link})\nPrecio: ${item.price} \n\n`;
       });
 
-      return await ctx.editMessageText(captionText);
+      return await ctx.editMessageText(captionText,{
+        parse_mode: 'Markdown'
+      });
     } else {
       return await ctx.editMessageText('No hay novedades!');
     }
