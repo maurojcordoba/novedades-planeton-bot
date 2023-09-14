@@ -14,8 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vercel/analytics": "^1.0.2",
     "@vercel/postgres": "^0.4.1",
-    "cheerio": "^1.0.0-rc.12",    
+    "cheerio": "^1.0.0-rc.12",
     "telegraf": "^4.13.1",
     "vercel": "^32.2.1"
   },
