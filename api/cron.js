@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     const found = data.find((game) => game.id == item.id);
 
     if (!found) {
-      let captionText = `[${item.title}](${item.link})\nPrecio: ${item.price} - _Sin login_`;
+      let captionText = `[${item.title}](${item.link})\nPrecio: ${item.price}`;
       let photoId = item.img;
       try {
         for (const chat of data_chats) {
