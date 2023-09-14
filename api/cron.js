@@ -1,19 +1,20 @@
 import { Telegraf } from 'telegraf';
-
-import { getNews } from './planeton';
-
 import { sql } from '@vercel/postgres';
-
+//import { getNewGames } from './planeton.mjs';
+import {pi,Saludar,saludito} from './math.mjs';
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
-const data_chats = chats.getAll();
-const data = JSON.parse(fs.readFileSync(dataPath));
-
+const chats = await sql`SELECT * FROM chats;`;
+const data_chats = chats.row;
+const news = await sql`SELECT * FROM news;`;
+const data = news.row;
+const newGames =[];
 export default async function handler(req, res) {
-  let news = await getNews();
+  //let newGames = await getNewGames();
 
-  for (const item of news) {
+  for (const item of newGames) {
     const found = data.find((game) => game.id == item.id);
+
     if (!found) {
       let captionText = `[${item.title}](${item.link})\nPrecio: ${item.price} - _Sin login_`;
       let photoId = item.img;
@@ -28,10 +29,10 @@ export default async function handler(req, res) {
       } catch (error) {
         console.log('Error', item.id, error);
       }
+
+      await sql`INSERT INTO Pets (Id, Img, Title, Link, Price) VALUES (${item.id}, ${item.img}, ${item.title}, ${item.link}, ${item.price});`;
     }
   }
 
-  fs.writeFileSync(dataPath, JSON.stringify(news));
-
-  res.status(200).json('ok');
+  res.status(200).end(saludito());
 }
